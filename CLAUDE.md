@@ -68,11 +68,25 @@ node packages/cli/dist/index.js validate spec/examples/valid/02-commission-affec
   有測試會比對，漂移就 CI 紅。
 - 文件裡的 ```json 區塊有測試在驗，改文件時範例不能寫壞。
 
+## 網站（`site/`）
+
+Astro 靜態輸出，繁中預設在 `/`、英文在 `/en/`，兩語內容完整。視覺是逆向參考站
+（Vexel AI）量測而來，**每個數值的出處與偏離理由都在 `site/DESIGN.md`**，動視覺前先讀那份。
+
+- 驗證器是唯一的 island，`influence-disclosure` 在按下驗證時才動態載入（首屏 JS 2.86 kB）。
+- 🔴 **改中文文案後要重跑字型 subset**：`pnpm --filter influence-disclosure-site fonts`
+  （`tools/subset_fonts.py`）。思源黑體是照實際用字切的 158 KB，不是整包；沒重跑會缺字回退系統字型。
+- 驗收腳本都在 `tools/`（截圖、對照圖、e2e、Lighthouse、PDF），`tools/README.md` 有對照表。
+- Lighthouse：a11y / best-practices / SEO 四輪全 100，performance 繁中手機 97、其餘 100。
+- **尚未部署**：Cloudflare 需要 `wrangler login`（互動式 OAuth，只有 Sean 能做），
+  之後 `pnpm --filter influence-disclosure-site deploy`。
+
 ## Recent Changes
 
 - **2026-09-05** v0.1.0 首次 commit（`ab18ecd`）。schema + 驗證器 + 四個 adapter
   （VC credentialSubject / DSSE / A2A metadata / MCP SEP-3004 extension）+ subject 假名化
   + 隱私啟發式 + CLI + SPEC.md + WHY-LABELS-FAIL.md + ARTICLE-10-MAPPING.md + PRIOR-ART.md。
+- **2026-09-05** 一頁站完成（`site/`）+ 第十條對照表 PDF。中文字型思源黑體（自架、照用字 subset）。
 - **2026-09-05** 定名 influence-disclosure。npm：`influence-disclosure`（core）／`influence-disclosure-cli`。
   PyPI 佔名套件在 `pypi-placeholder/`（**尚未發布**，需要 Sean 的 token）。URN 不變。
 - 2026-09-05 範圍從「完整收據規格 + SDK + CLI + MCP + 網站」砍成「一段」。原因＝prior art。

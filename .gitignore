@@ -11,3 +11,8 @@ coverage/
 .env
 .env.*
 !.env.example
+
+# Local rendering output. Screenshots of the reference site are not ours to redistribute,
+# and the Lighthouse reports regenerate from tools/lh.mjs.
+site/screenshots/
+site/.astro/

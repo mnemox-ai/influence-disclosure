@@ -1,0 +1,321 @@
+/* Tokens and values are measured from the reference site; see site/DESIGN.md for the
+   provenance of every number here, including the two deliberate deviations on line-height. */
+
+:root {
+  --bg: #000000;
+  --fg: #ffffff;
+  --fg-2: #ececec;
+  --fg-3: rgba(255, 255, 255, 0.85);
+  --fg-4: rgba(255, 255, 255, 0.55);
+  --line: rgba(255, 255, 255, 0.1);
+  --line-strong: rgba(255, 255, 255, 0.22);
+  --card: rgba(0, 0, 0, 0.3);
+  --accent: #0083ff;
+  --accent-dim: rgba(0, 131, 255, 0.14);
+
+  --container: 1440px;
+  --gutter: 40px;
+  --nav-h: 104px;
+  --section-y: 100px;
+  --hero-y: 200px;
+
+  --radius-card: 12px;
+  --radius-pill: 999px;
+  --radius-code: 8px;
+
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+
+  /* Geist covers Latin; Chinese falls through to Noto Sans TC, which is self-hosted so
+     the page does not depend on what the reader happens to have installed. */
+  --font: 'Geist Variable', 'Noto Sans TC', ui-sans-serif, system-ui, -apple-system,
+    'Segoe UI', 'PingFang TC', 'Microsoft JhengHei', sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, monospace;
+
+  color-scheme: dark;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  /* the fixed bar must not cover a section that was just jumped to */
+  scroll-padding-top: calc(var(--nav-h) + 16px);
+  background: var(--bg);
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font);
+  font-size: 20px;
+  font-weight: 300;
+  letter-spacing: -0.02em;
+  /* measured 1.0 on the reference; 1.0 is unreadable for multi-line Traditional Chinese */
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+img,
+svg {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* ---------- layout ---------- */
+
+.container {
+  width: 100%;
+  max-width: var(--container);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.section {
+  padding-block: var(--section-y);
+  border-top: 1px solid var(--line);
+}
+
+.section--flush {
+  border-top: 0;
+}
+
+.prose {
+  max-width: 68ch;
+}
+
+/* ---------- type ---------- */
+
+.eyebrow {
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: -0.04em;
+  color: var(--fg-3);
+  margin: 0 0 12px;
+}
+
+.eyebrow--accent {
+  color: var(--accent);
+}
+
+h1,
+h2,
+h3 {
+  margin: 0;
+  font-weight: 400;
+  letter-spacing: -0.06em;
+  line-height: 1.15;
+  text-wrap: balance;
+}
+
+h1 {
+  font-size: 64px;
+  font-weight: 500;
+  /* measured 1.0; raised so Traditional Chinese glyph tops are not clipped */
+  line-height: 1.12;
+}
+
+h2 {
+  font-size: 48px;
+}
+
+h3 {
+  font-size: 20px;
+  letter-spacing: -0.02em;
+  font-weight: 500;
+}
+
+p {
+  margin: 0 0 20px;
+  color: var(--fg-2);
+}
+
+p:last-child {
+  margin-bottom: 0;
+}
+
+.lede {
+  color: var(--fg-2);
+  max-width: 68ch;
+}
+
+.small {
+  font-size: 14px;
+  letter-spacing: -0.04em;
+  color: var(--fg-4);
+  line-height: 1.6;
+}
+
+code,
+kbd,
+pre {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  letter-spacing: 0;
+}
+
+/* ---------- buttons ---------- */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 48px;
+  padding: 12px 24px;
+  border-radius: var(--radius-pill);
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  text-decoration: none;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition:
+    background-color 160ms var(--ease),
+    border-color 160ms var(--ease),
+    transform 160ms var(--ease),
+    color 160ms var(--ease);
+}
+
+.btn--primary {
+  background: var(--fg);
+  color: #000;
+}
+
+.btn--primary:hover {
+  background: #d8e9ff;
+  transform: translateY(-1px);
+}
+
+.btn--secondary {
+  background: transparent;
+  color: var(--fg);
+  border-color: var(--line-strong);
+}
+
+.btn--secondary:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: var(--fg-4);
+  transform: translateY(-1px);
+}
+
+.btn--ghost {
+  min-height: 36px;
+  padding: 8px 16px;
+  font-size: 14px;
+  background: transparent;
+  color: var(--fg-3);
+  border-color: var(--line);
+}
+
+.btn--ghost:hover {
+  color: var(--fg);
+  border-color: var(--line-strong);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.btn:active {
+  transform: translateY(0);
+}
+
+/* ---------- card ---------- */
+
+.card {
+  padding: 32px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-card);
+  background: transparent;
+}
+
+.card--filled {
+  background: var(--card);
+}
+
+/* ---------- entrance ---------- */
+
+/* Scoped to .js, which an inline head script sets. Without JavaScript every section
+   stays visible instead of being permanently hidden by an animation that never runs. */
+.js .reveal {
+  opacity: 0;
+  transform: translateY(8px);
+}
+
+.js .reveal.is-in {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity 420ms var(--ease),
+    transform 420ms var(--ease);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .js .reveal,
+  .js .reveal.is-in {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .btn {
+    transition: none;
+  }
+}
+
+/* ---------- breakpoints, copied from the reference: 992 and 480 ---------- */
+
+@media (max-width: 992px) {
+  :root {
+    --gutter: 24px;
+    --nav-h: 72px;
+    --section-y: 72px;
+    --hero-y: 128px;
+  }
+  h1 {
+    font-size: 48px;
+  }
+  h2 {
+    font-size: 36px;
+  }
+  body {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 480px) {
+  :root {
+    --gutter: 20px;
+    --section-y: 64px;
+  }
+  h1 {
+    font-size: 32px;
+  }
+  h2 {
+    font-size: 28px;
+  }
+  body {
+    font-size: 17px;
+  }
+  .card {
+    padding: 24px;
+  }
+}

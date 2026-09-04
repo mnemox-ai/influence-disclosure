@@ -1,7 +1,10 @@
 packages:
   - 'packages/*'
+  - 'site'
 
 # esbuild ships a platform binary and its install script places it. It arrives only as a
 # transitive dependency of vitest; nothing published from this repo uses it.
 allowBuilds:
   esbuild: true
+  # sharp powers Astro's image pipeline and ships a platform binary
+  sharp: true

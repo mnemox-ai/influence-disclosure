@@ -1,0 +1,11 @@
+{
+  "name": "influence-disclosure-tools",
+  "private": true,
+  "type": "module",
+  "description": "Local-only rendering helpers: screenshots, the PDF of the Article 10 mapping, Lighthouse. Not part of the workspace and never published.",
+  "dependencies": {
+    "lighthouse": "^13.4.1",
+    "marked": "^18.0.11",
+    "puppeteer-core": "^24.24.0"
+  }
+}

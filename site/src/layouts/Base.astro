@@ -1,0 +1,323 @@
+---
+import '@fontsource-variable/geist'
+// Noto Sans TC (思源黑體), cut by tools/subset_fonts.py to the characters this site
+// actually renders: 158 kB across three weights, against 18 MB and a 395 kB
+// render-blocking stylesheet for the general-purpose unicode-range build.
+import '../styles/noto-sans-tc.css'
+import '../styles/global.css'
+import { REPO, type Content, type Locale } from '../i18n/content'
+
+interface Props {
+  locale: Locale
+  c: Content
+}
+const { locale, c } = Astro.props
+const isZh = locale === 'zh-TW'
+const otherHref = isZh ? '/en/' : '/'
+const otherLabel = isZh ? 'EN' : '中文'
+const home = isZh ? '/' : '/en/'
+const links = [
+  { href: '#records', label: c.nav.records },
+  { href: '#verify', label: c.nav.verify },
+  { href: '#article10', label: c.nav.article10 },
+  { href: '#install', label: c.nav.install },
+]
+---
+
+<!doctype html>
+<html lang={c.htmlLang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{c.metaTitle}</title>
+    <meta name="description" content={c.metaDescription} />
+    <link rel="canonical" href={new URL(Astro.url.pathname, 'https://influence-disclosure.pages.dev')} />
+    <link rel="alternate" hreflang="zh-Hant" href="https://influence-disclosure.pages.dev/" />
+    <link rel="alternate" hreflang="en" href="https://influence-disclosure.pages.dev/en/" />
+    <meta property="og:title" content={c.metaTitle} />
+    <meta property="og:description" content={c.metaDescription} />
+    <meta property="og:type" content="website" />
+    <meta name="theme-color" content="#000000" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23000'/%3E%3Ccircle cx='16' cy='16' r='7' fill='none' stroke='%230083FF' stroke-width='2.5'/%3E%3Ccircle cx='16' cy='16' r='2.5' fill='%230083FF'/%3E%3C/svg%3E"
+    />
+    <script is:inline>
+      // set before first paint: .reveal only hides itself when JS can un-hide it
+      document.documentElement.classList.add('js')
+    </script>
+  </head>
+  <body>
+    <a class="skip" href="#main">{isZh ? '跳到主要內容' : 'Skip to content'}</a>
+
+    <header class="nav">
+      <div class="nav__inner">
+        <a class="brand" href={home}>
+          <span class="brand__mark" aria-hidden="true"></span>
+          <span class="brand__name">influence-disclosure</span>
+        </a>
+
+        <nav class="nav__links" aria-label={c.navAria.menu}>
+          {links.map((l) => <a href={l.href}>{l.label}</a>)}
+        </nav>
+
+        <div class="nav__end">
+          <a class="lang" href={otherHref} hreflang={isZh ? 'en' : 'zh-Hant'}>
+            {otherLabel}<span class="sr-only"> {c.navAria.language}</span>
+          </a>
+          <a class="btn btn--primary nav__cta" href={REPO} rel="noopener">{c.nav.cta}</a>
+          <details class="burger">
+            <summary aria-label={c.navAria.menu}>
+              <span aria-hidden="true"></span>
+              <span aria-hidden="true"></span>
+            </summary>
+            <div class="burger__sheet">
+              {links.map((l) => <a href={l.href}>{l.label}</a>)}
+              <a href={REPO} rel="noopener">{c.nav.cta}</a>
+              <a href={otherHref} hreflang={isZh ? 'en' : 'zh-Hant'}>{otherLabel}</a>
+            </div>
+          </details>
+        </div>
+      </div>
+    </header>
+
+    <main id="main"><slot /></main>
+
+    <footer class="foot">
+      <div class="container foot__inner">
+        <a href={REPO} rel="noopener">GitHub</a>
+        <a href={`${REPO}/blob/main/LICENSE`} rel="noopener">{c.footer.license}</a>
+        <span class="small">{c.footer.status}</span>
+      </div>
+    </footer>
+
+    <script>
+      // The only site-wide script: one entrance fade, then it disconnects itself.
+      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+      const targets = document.querySelectorAll('.reveal')
+      if (reduce) {
+        targets.forEach((el) => el.classList.add('is-in'))
+      } else {
+        const io = new IntersectionObserver(
+          (entries) => {
+            for (const e of entries) {
+              if (e.isIntersecting) {
+                e.target.classList.add('is-in')
+                io.unobserve(e.target)
+              }
+            }
+          },
+          { rootMargin: '0px 0px -8% 0px', threshold: 0.05 },
+        )
+        targets.forEach((el) => io.observe(el))
+      }
+      // close the mobile sheet after following a link inside it
+      document.querySelectorAll('.burger__sheet a').forEach((a) =>
+        a.addEventListener('click', () => document.querySelector('.burger')?.removeAttribute('open')),
+      )
+    </script>
+
+    <style>
+      /* An aria-label that replaces the visible text fails
+         label-content-name-mismatch, so the extra context is appended instead. */
+      .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip-path: inset(50%);
+        white-space: nowrap;
+        border: 0;
+      }
+
+      .skip {
+        position: absolute;
+        left: -9999px;
+        top: 8px;
+        z-index: 1000000;
+        background: var(--fg);
+        color: #000;
+        padding: 10px 16px;
+        border-radius: var(--radius-pill);
+        font-size: 14px;
+        text-decoration: none;
+      }
+      .skip:focus {
+        left: 16px;
+      }
+
+      /* fixed, 104px tall, inner padding 20px 40px, space-between: measured */
+      .nav {
+        position: fixed;
+        inset: 0 0 auto;
+        z-index: 999;
+        height: var(--nav-h);
+        background: rgba(0, 0, 0, 0.72);
+        backdrop-filter: blur(14px);
+        border-bottom: 1px solid var(--line);
+      }
+      .nav__inner {
+        height: 100%;
+        max-width: var(--container);
+        margin-inline: auto;
+        padding: 20px var(--gutter);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 24px;
+      }
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        text-decoration: none;
+        font-size: 16px;
+        font-weight: 500;
+        letter-spacing: -0.02em;
+        white-space: nowrap;
+      }
+      .brand__mark {
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        border: 2px solid var(--accent);
+        flex: none;
+      }
+      .nav__links {
+        display: flex;
+        gap: 32px;
+      }
+      .nav__links a {
+        font-size: 16px;
+        font-weight: 400;
+        letter-spacing: -0.02em;
+        color: var(--fg-3);
+        text-decoration: none;
+        position: relative;
+        padding-block: 4px;
+        transition: color 160ms var(--ease);
+      }
+      /* layered hover: colour + underline reveal, not a single colour shift */
+      .nav__links a::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 1px;
+        background: var(--accent);
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 160ms var(--ease);
+      }
+      .nav__links a:hover {
+        color: var(--fg);
+      }
+      .nav__links a:hover::after {
+        transform: scaleX(1);
+      }
+      .nav__end {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .lang {
+        font-size: 14px;
+        letter-spacing: -0.02em;
+        color: var(--fg-3);
+        text-decoration: none;
+        padding: 8px 10px;
+        border-radius: var(--radius-pill);
+        transition: color 160ms var(--ease), background-color 160ms var(--ease);
+      }
+      .lang:hover {
+        color: var(--fg);
+        background: rgba(255, 255, 255, 0.06);
+      }
+
+      .burger {
+        display: none;
+      }
+      .burger summary {
+        list-style: none;
+        width: 40px;
+        height: 40px;
+        display: grid;
+        place-content: center;
+        gap: 5px;
+        cursor: pointer;
+        border: 1px solid var(--line);
+        border-radius: var(--radius-pill);
+      }
+      .burger summary::-webkit-details-marker {
+        display: none;
+      }
+      .burger summary span {
+        display: block;
+        width: 16px;
+        height: 1.5px;
+        background: var(--fg);
+      }
+      .burger__sheet {
+        position: fixed;
+        left: 0;
+        right: 0;
+        top: var(--nav-h);
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        padding: 12px var(--gutter) 24px;
+        background: rgba(0, 0, 0, 0.96);
+        border-bottom: 1px solid var(--line);
+      }
+      .burger__sheet a {
+        padding: 14px 4px;
+        font-size: 18px;
+        text-decoration: none;
+        color: var(--fg-2);
+        border-bottom: 1px solid var(--line);
+      }
+      .burger__sheet a:last-child {
+        border-bottom: 0;
+      }
+
+      main {
+        padding-top: var(--nav-h);
+      }
+
+      .foot {
+        border-top: 1px solid var(--line);
+        padding-block: 40px;
+      }
+      .foot__inner {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 12px 28px;
+        font-size: 14px;
+        letter-spacing: -0.02em;
+      }
+      .foot__inner a {
+        color: var(--fg-3);
+        text-decoration: none;
+      }
+      .foot__inner a:hover {
+        color: var(--fg);
+        text-decoration: underline;
+        text-underline-offset: 4px;
+      }
+
+      @media (max-width: 992px) {
+        .nav__links,
+        .nav__cta {
+          display: none;
+        }
+        .burger {
+          display: block;
+        }
+      }
+    </style>
+  </body>
+</html>
