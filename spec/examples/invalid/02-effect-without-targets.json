@@ -1,0 +1,14 @@
+{
+  "spec_version": "0.1.0",
+  "completeness": "complete",
+  "relationships": [
+    {
+      "id": "hotel-partner",
+      "counterparty": { "ref": "partner.example" },
+      "direction": "inbound",
+      "form": "commission",
+      "compensation": { "type": "rate", "rate": 0.12 },
+      "effect": { "kind": "ranking" }
+    }
+  ]
+}

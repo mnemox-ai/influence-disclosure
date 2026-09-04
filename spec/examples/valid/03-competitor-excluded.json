@@ -1,0 +1,15 @@
+{
+  "spec_version": "0.1.0",
+  "completeness": "complete",
+  "relationships": [
+    {
+      "id": "exclusive-supplier",
+      "counterparty": { "ref": "supplier.example", "kind": "platform" },
+      "direction": "inbound",
+      "form": "exclusivity",
+      "compensation": { "type": "withheld", "reason": "commercially_confidential" },
+      "effect": { "kind": "exclusion", "targets": ["opt:rival-a", "opt:rival-b"] },
+      "disclosed_to_principal": "not_disclosed"
+    }
+  ]
+}

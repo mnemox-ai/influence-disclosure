@@ -1,0 +1,24 @@
+{
+  "spec_version": "0.1.0",
+  "completeness": "complete",
+  "relationships": [
+    {
+      "id": "hotel-partner",
+      "counterparty": { "ref": "partner-hotels.example", "kind": "merchant" },
+      "direction": "inbound",
+      "form": "commission",
+      "compensation": { "type": "rate", "rate": 0.12 },
+      "effect": { "kind": "ranking", "targets": ["opt:hotel-2"] },
+      "disclosed_to_principal": "in_band"
+    },
+    {
+      "id": "airline-affiliate",
+      "counterparty": { "ref": "air.example", "kind": "merchant" },
+      "direction": "inbound",
+      "form": "affiliate",
+      "compensation": { "type": "fixed", "amount": "40.00", "currency": "TWD" },
+      "effect": { "kind": "none" },
+      "disclosed_to_principal": "on_request"
+    }
+  ]
+}

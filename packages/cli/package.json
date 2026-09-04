@@ -1,0 +1,19 @@
+{
+  "name": "@decision-receipt/cli",
+  "version": "0.1.0",
+  "description": "CLI to issue, sign, verify and inspect Agent Decision Receipts.",
+  "license": "Apache-2.0",
+  "type": "module",
+  "bin": {
+    "receipt": "./dist/index.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json"
+  },
+  "dependencies": {
+    "@decision-receipt/core": "workspace:*"
+  }
+}

@@ -1,0 +1,13 @@
+node_modules/
+dist/
+coverage/
+*.tsbuildinfo
+.DS_Store
+*.log
+# private keys and salts must never be committed
+*.private.jwk
+*.priv.pem
+*.salt
+.env
+.env.*
+!.env.example

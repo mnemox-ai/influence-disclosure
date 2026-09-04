@@ -1,0 +1,14 @@
+{
+  "spec_version": "0.1.0",
+  "completeness": "complete",
+  "relationships": [
+    {
+      "id": "hotel-partner",
+      "counterparty": { "ref": "Partner Hotels Limited, Taipei branch" },
+      "direction": "inbound",
+      "form": "commission",
+      "compensation": { "type": "rate", "rate": 0.12 },
+      "effect": { "kind": "none" }
+    }
+  ]
+}
