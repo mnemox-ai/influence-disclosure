@@ -1,0 +1,20 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "influence-disclosure"
+version = "0.0.0"
+description = "Name reservation. The reference implementation of the Influence Disclosure Section is TypeScript; a Python SDK is not part of v0."
+readme = "README.md"
+requires-python = ">=3.9"
+license = "Apache-2.0"
+authors = [{ name = "influence-disclosure contributors" }]
+keywords = ["disclosure", "ai-agents", "provenance", "conflict-of-interest"]
+
+[project.urls]
+Homepage = "https://github.com/mnemox-ai/influence-disclosure"
+Specification = "https://github.com/mnemox-ai/influence-disclosure/blob/main/spec/SPEC.md"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/influence_disclosure"]

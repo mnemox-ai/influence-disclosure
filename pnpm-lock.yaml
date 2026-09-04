@@ -23,7 +23,7 @@ importers:
 
   packages/cli:
     dependencies:
-      '@decision-receipt/core':
+      influence-disclosure:
         specifier: workspace:*
         version: link:../core
 

@@ -1,6 +1,7 @@
-# agent-decision-receipt
+# influence-disclosure
 
-> 目錄名是暫名。品牌未定，見 `DECISIONS.md` 的三個候選。
+> 正式名稱 **influence-disclosure**（2026-09-05 Sean 拍板）。口語簡稱可寫 "Influence Disclosure (ID)"，
+> 但 **ID 不得出現在任何識別碼裡**：套件名、URN、網址、schema `$id` 一律用全名。
 
 ## 這是什麼
 
@@ -12,7 +13,7 @@
 
 ## Current Status（2026-09-05）
 
-- **v0.1.0 已 commit（`main`，本機，無 remote）。** 品牌定名後才建 GitHub repo。
+- **v0.1.0 已推上 `github.com/mnemox-ai/influence-disclosure`（public、Apache-2.0）。**
 - 116 tests / 8 files 全綠；core 的 statements、functions、lines 100%，branch 98.7%。
 - `pnpm typecheck` / `pnpm test` / `pnpm build` 三個都過。CLI 端到端跑過全部 7 份範例。
 - **⏸ 停工四週，等客戶發現結果。** Sean 去接觸券商的 AI 供應商與投顧公會自律規範起草人。
@@ -72,5 +73,7 @@ node packages/cli/dist/index.js validate spec/examples/valid/02-commission-affec
 - **2026-09-05** v0.1.0 首次 commit（`ab18ecd`）。schema + 驗證器 + 四個 adapter
   （VC credentialSubject / DSSE / A2A metadata / MCP SEP-3004 extension）+ subject 假名化
   + 隱私啟發式 + CLI + SPEC.md + WHY-LABELS-FAIL.md + ARTICLE-10-MAPPING.md + PRIOR-ART.md。
+- **2026-09-05** 定名 influence-disclosure。npm：`influence-disclosure`（core）／`influence-disclosure-cli`。
+  PyPI 佔名套件在 `pypi-placeholder/`（**尚未發布**，需要 Sean 的 token）。URN 不變。
 - 2026-09-05 範圍從「完整收據規格 + SDK + CLI + MCP + 網站」砍成「一段」。原因＝prior art。
   移除 packages/mcp 與 site。決策全文與翻案條件見 `DECISIONS.md`（信封決策格式，11 條）。

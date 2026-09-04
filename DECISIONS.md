@@ -129,20 +129,19 @@ core 得以維持純函式無 IO。
 
 ---
 
-### ENV-007 · 品牌未定不擋工，scope 是單點可換
+### ENV-007 · 定名 influence-disclosure（已結案）
 
-**決定** repo 暫名 `agent-decision-receipt`，npm scope 暫用 `@decision-receipt`。品牌定案後
-一次 sed 換掉，不建 GitHub remote。
+**決定** 正式名稱 `influence-disclosure`。npm 不用 scope：`influence-disclosure`（core）、
+`influence-disclosure-cli`。PyPI 同名佔位。GitHub `mnemox-ai/influence-disclosure`。
+URN 維持 `urn:influence-disclosure:v0`。**口語可簡稱 "Influence Disclosure (ID)"，
+但 `ID` 不進任何識別碼**，因為它在工程圈已經是 identifier 的意思，撞得太兇。
 
-**理由** 命名只出現在三個 package.json 與 README 指令，換名成本 10 分鐘內。
+**理由** 三個候選裡它最自我解釋，法遵文件與規格引用兩種場合都讀得通，中文直譯「影響力揭露」。
+2026-09-05 實測 npm、PyPI、GitHub org 與 user 四項全空。放棄品牌感換取「看到名字就知道是什麼」。
 
-**翻案條件** Sean 給名字。
+**翻案條件** 無。已定名、已推 GitHub。
 
-**翻案成本** 極低。
-
-**狀態** 已決（等命名）
-
----
+**狀態** 已決、已執行
 
 ---
 

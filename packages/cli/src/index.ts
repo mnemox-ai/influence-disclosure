@@ -16,7 +16,7 @@ import {
   validateInfluence,
   type Extracted,
   type InfluenceSection,
-} from '@decision-receipt/core'
+} from 'influence-disclosure'
 
 const USAGE = `influence — validate a paid-influence disclosure section
 
