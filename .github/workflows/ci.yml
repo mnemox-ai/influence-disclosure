@@ -6,8 +6,12 @@ jobs:
   test:
     runs-on: ubuntu-latest
     strategy:
+      # one version failing should not hide whether the others pass
+      fail-fast: false
       matrix:
-        node: ['20', '22', '24']
+        # pnpm 11 requires Node >= 22.13. The published library targets Node >= 20.11;
+        # that floor is enforced by packages/core engines, not by this matrix.
+        node: ['22', '24']
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4

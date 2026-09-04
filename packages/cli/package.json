@@ -15,5 +15,8 @@
   },
   "dependencies": {
     "influence-disclosure": "workspace:*"
+  },
+  "engines": {
+    "node": ">=20.11"
   }
 }
